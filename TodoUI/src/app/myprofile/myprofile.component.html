@@ -1,0 +1,183 @@
+
+
+
+<!--  -->
+<!-- NAVBAR -->
+<!--  -->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <img src="../../assets/to-do.png" style="margin-right: 10px;width:30px;height:30px;">
+    <a class="navbar-brand" style="font-size: 30px;" [routerLink]="['/to-do']">
+        To Do Planner
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav" style="font-family: Arial, Helvetica, sans-serif;margin-top: 8px;">
+            <a class="nav-item nav-link active" style="border-radius: 2px;" [routerLink]="['/planners']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                My Planner
+            </a>
+            <a class="nav-item nav-link active" [routerLink]="['/about']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">About</a>
+            <a class="nav-item nav-link active" (click)="signOut()" style="cursor: pointer;">Sign out</a>
+        </div>
+    </div>
+</nav>
+
+
+
+
+<div id="container" style="display: flex;flex-direction: column;width:100%;height:100%;padding:10px;margin-bottom: 20px;">
+    <div style="display: flex;flex-direction: column;align-items: center;margin-top: 50px;">
+        <div class="items" style="width:350px; display: flex;flex-wrap: wrap;flex-direction: row;">
+            <div style="float: left;">
+                <img src="https://img.icons8.com/clouds/100/000000/business-contact.png"/>
+            </div>
+            <div style="color:black;margin-left: 20px;margin-top: 15px;">
+                <label style="font-size: 20px;margin-right: 5px;color:black">{{yourDetails.firstname}}</label>
+                <label style="font-size: 20px;color:black">{{yourDetails.lastname}}</label><br>
+                <label style="color:black;font-size: 12px">{{yourDetails.email}}</label><br>
+                <button style="color: red;padding:0px;background-color: transparent;border: none;outline:none" (click)="openDialog(accountDeleteQuestion,'self', yourDetails.id)">Delete Account</button>
+            </div>
+        </div>
+        <br><br>
+        <div style="display: flex;flex-direction: column;flex-wrap: wrap;">
+            <div class="header">
+                <header style="font-variant: small-caps;font-size: 20px;"><b>Admin Operations</b></header>
+            </div><br>
+            <div>
+                <mat-accordion>
+
+                    <mat-expansion-panel *ngIf="isAdmin" class="parametersPanel" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header >
+                            <mat-panel-title>
+                                <b>Migrate Database</b>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <label><b>Note -</b> Migrate once there is update in the schema of the database.</label><br>
+                        <button class="updateButton" (click)="openDialog(migrateDatabaseQuestion,'migrate',null)">Migrate</button>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel class="parametersPanel" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header >
+                            <mat-panel-title>
+                                <b>Update Firstname</b>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <form [formGroup]="newFirstnameForm" (ngSubmit)="openDialog(firstnameUpdateQuestion,'firstname',null)">
+                            <div>
+                                <label for="new-firstname">New Firstname <b style="color:red">*</b></label><br>
+                                <div style="display: flex;flex-direction: row;flex-wrap: wrap;width:320px">
+                                    <input name="firstname" formControlName="firstname" type="text" id="new-firstname" autofocus required minlength="4" autocomplete="off"><br>
+                                </div>
+                            </div><br>
+                            <button type="submit" class="updateButton">Submit</button>
+                        </form>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <b>Update Lastname</b>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <form [formGroup]="newLastnameForm" (ngSubmit)="openDialog(lastnameUpdateQuestion,'lastname',null)">
+                            <div>
+                                <label for="new-lastname">New Lastname <b style="color:red">*</b></label><br>
+                                <div style="display: flex;flex-direction: row;flex-wrap: wrap;width:320px">
+                                    <input formControlName="lastname" type="text" id="lastname" name="new-lastname" required minlength="2" autocomplete="off"><br>
+                                </div>
+                            </div><br>
+                            <button type="submit" class="updateButton">Submit</button>
+                        </form>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <b>Update Email</b>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <form [formGroup]="newEmailForm" (ngSubmit)="openDialog(emailUpdateQuestion,'email',null)">
+                            <div>
+                                <label for="new-email">New Email <b style="color:red">*</b></label><br>
+                                <div style="display: flex;flex-direction: row;flex-wrap: wrap;width:320px">
+                                    <input formControlName="email" type="email" id="email" name="new-email" autocomplete="off" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"><br>
+                                </div>
+                            </div><br>
+                            <button type="submit" class="updateButton">Submit</button>
+                        </form>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <b>Update Password</b>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                            <form [formGroup]="newPasswordForm" (ngSubmit)="openDialog(passwordUpdateQuestion,'password',null)">
+                                <div>
+                                    <label for="current-password">Current Password <b style="color:red">*</b></label><br>
+                                    <div style="display: flex;flex-direction: row;flex-wrap: wrap;width:320px">
+                                        <input formControlName="current" name="current-password" matInput type="password" minlength="15" [type]="currentPasswordHide ? 'password' : 'text'"  required style="width: 280px !important;" autocomplete="off">
+                                        <mat-icon matSuffix (click)="currentPasswordHide = !currentPasswordHide" style="cursor: pointer;">{{currentPasswordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </div>
+                                </div><br>
+                                <div>
+                                    <label for="new-password">New Password <b style="color:red">*</b></label><br>
+                                    <div style="display: flex;flex-direction: row;flex-wrap: wrap;width:320px">
+                                        <input formControlName="password" name="new-password" matInput type="password" minlength="15" [type]="hide ? 'password' : 'text'"  required style="width: 280px !important;" autocomplete="off">
+                                        <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer;">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </div>
+                                </div><br>
+                                <div>
+                                    <label for="signup-confirm-password">Confirm New Password <b style="color:red">*</b></label><br>
+                                    <input formControlName="confirm_password" type="password" id="signup-confirm-password" name="confirm-password" required minlength="15" autocomplete="off"> <br>
+                                </div><br>
+                                <button type="submit" class="updateButton">Submit</button>
+                            </form>
+                    </mat-expansion-panel>
+
+                </mat-accordion>
+            </div>
+        </div>
+        <br><br>
+        <div style="display: flex;flex-direction: column;flex-wrap: wrap;width:800px" *ngIf="isAdmin">
+            <div class="header">
+                <header style="font-variant: small-caps;font-size: 20px;"><b>User Details</b></header>
+            </div>
+            <div class="card-body">
+                <div *ngFor="let item of allUserDetails" style="display: flex;flex-direction: row;flex-wrap: wrap;padding:5px">
+                    <div class="items">
+                        <label style="font-size: 20px;margin-right: 5px;color: black;">{{item.firstname}}</label>
+                        <label style="font-size: 20px;color:black">{{item.lastname}}</label><br>
+                        <label style="color:black;font-size: 12px;">{{item.email}}</label><br>
+                        <button style="border:none;color:red;padding:0px;background-color: transparent;outline:none" *ngIf="item.isadmin===false" (click)="openDialog(accountDeleteQuestion,'others', yourDetails.id)">Delete</button>
+                        <button style="border:none;color:dodgerblue;padding:0px;background-color: transparent; margin-left: 30px;outline: none;" *ngIf="item.isadmin===false" (click)="makeAdmin(item.id)">Make Admin</button>
+                        <label *ngIf="item.isadmin" style="color:#70CDB0">Admin</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div style="display: flex;flex-direction: column;flex-wrap: wrap;width:800px" *ngIf="isAdmin">
+            <div class="header">
+                <header style="font-variant: small-caps;font-size: 20px;"><b>Feedback Details</b></header>
+            </div>
+            <div class="feedback_body">
+                <div *ngFor="let item of allFeedbackDetails" style="display: flex;flex-direction: row;flex-wrap: wrap;padding:10px;height: fit-content;width:100%">
+                    <div class="items" style="width:100%;display:flex;flex-direction: column;padding:10px">
+                        <div style="display: flex;flex-direction: row;padding:10px">
+                            <label style="font-size: 20px;margin-right: 5px;color: black;">{{item.firstname}}</label>
+                            <label style="font-size: 20px;margin-right: 5px;color: black;">{{item.lastname}}</label><br>
+                        </div>
+                        <div *ngFor="let feedbacks of item.feedback; let i = index" [attr.data-index]="i" style="display: flex;flex-direction:column;flex-wrap: wrap;padding-left:15px">
+                            <label style="font-size: 12px;color:black;margin-bottom:0px">{{i+1}}. {{feedbacks}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    </div>
+
+</div>

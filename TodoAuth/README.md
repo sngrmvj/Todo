@@ -68,8 +68,8 @@ A To-Do checklist application, mainly for daily tasks which gets refreshed every
 
 #### Repo Links
 - Lists of Tasks (todo-lists)
-    - > https://github.com/sngrmvj/todo-lists
+    - > https://github.com/sngrmvj/todo/tree/main/TodoLists
 - User Interface (todo-ui)
-    - > https://github.com/sngrmvj/todo-ui
+    - > https://github.com/sngrmvj/todo/tree/main/TodoUI
 
 

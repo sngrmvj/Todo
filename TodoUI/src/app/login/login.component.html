@@ -1,0 +1,141 @@
+
+
+
+<!--  -->
+<!-- NAVBAR -->
+<!--  -->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <img src="../../assets/to-do.png" style="margin-right: 10px;width:30px;height:30px;">
+    <a class="navbar-brand" style="font-size: 30px;" [routerLink]="['/to-do']">
+        
+        To Do Planner
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav" style="font-family: Arial, Helvetica, sans-serif;margin-top: 8px;">
+            <!-- <a class="nav-item nav-link active" style="background-color: #FF6363;color:white;border-radius: 2px;" [routerLink]="['/login']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                Login
+            </a> -->
+            <a class="nav-item nav-link active" [routerLink]="['/about']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">About</a>
+        </div>
+    </div>
+</nav>
+
+
+
+<!--  -->
+<!-- Login & Sign Up -->
+<!--  -->
+
+<div class="container">
+
+    <div [ngClass]="toggleProperty ? 'flipped' : ''"   class="card">
+
+        <!--  -->
+        <!-- Login Page -->
+        <!--  -->
+        <div class="front" style="display: flex;flex-direction: row;padding:40px;padding-top: 60px;">
+            <div>
+                <img src="../../assets/signin.svg" style="height: 500px;width: 500px;">
+            </div>
+        
+            <div style="display: flex;flex-direction: column;padding: 20px;padding-left: 100px;padding-top: 50px;">
+                <div style="font-variant: small-caps;display: block;width: 100%;">
+                    <header style="font-size: 20px;">Sign In</header> <br>
+                </div>
+                
+                <form #signInForm="ngForm" (ngSubmit)="login(signInForm.value)">
+                    <div>
+                        <label for="signin-email">Email</label><br>
+                        <input ngModel type="email" id="signin-email" name="email" autocomplete="off" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"><br>
+                    </div><br>
+                    
+                    <div *ngIf="toggleProperty === false">
+                        <label for="signin-password" >Password</label><br>
+                        <div style="display: flex;flex-direction: row;flex-wrap: wrap;">
+                            <input ngModel name="password" matInput type="password" minlength="15" [type]="hide ? 'password' : 'text'"  required style="width: 300px !important;">
+                            <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer;">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </div>
+
+                    </div><br>
+    
+                    <a style="text-decoration: none;" [routerLink]="['/forgotpwd']" >Forgot Password?</a> <br><br>
+                    <button type="submit" class="btn draw-border" *ngIf="toggleProperty === false" >Login</button>
+                </form>
+                
+                <br><br>
+    
+                <div>
+                    <label style="color:black">Don't have an account?</label>
+                    <a class="another_button" (click)="toggle()" *ngIf="toggleProperty === false">Create an Account</a>
+                </div>
+    
+            </div>
+        </div>
+        <!-- End of Login Page  -->
+
+        <!--  -->
+        <!-- Sign Up -->
+        <!--  -->
+        <div class="back" style="display: flex;flex-direction: row;padding:40px;padding-top: 20px;margin-left: 100px;">
+            <div>
+                <img src="../../assets/signin.svg" style="height: 500px;width: 500px;">
+            </div>
+        
+            <div class="Sign-up">
+                <div style="font-variant: small-caps;display: block;width: 100%;">
+                    <header style="font-size: 20px;">Create Account</header> <br>
+                </div>
+                
+                <form [formGroup]="reactiveForm" (ngSubmit)="registration()">
+                    <div>
+                        <label for="firstname">Firstname <b style="color:red">*</b></label><br>
+                        <input name="firstname" formControlName="firstname" type="text" id="firstname" autofocus required minlength="4" autocomplete="off"><br>
+                    </div><br>
+                    <div>
+                        <label for="lastname">Lastname <b style="color:red">*</b></label><br>
+                        <input formControlName="lastname" type="text" id="lastname" name="lastname" required minlength="2" autocomplete="off"><br>
+                    </div><br>
+                    <div>
+                        <label for="email">Email <b style="color:red">*</b></label><br>
+                        <input formControlName="email" type="email" id="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"><br>
+                    </div><br>
+                    <div>
+                        <label for="signup-password">Password <b style="color:red">*</b></label><br>
+                        <!-- <mat-pass-toggle-visibility #toggle matSuffix></mat-pass-toggle-visibility> -->
+                        <div style="display: flex;flex-direction: row;flex-wrap: wrap;width:320px">
+                            <input formControlName="password" matInput type="password" minlength="15" [type]="signUpHide ? 'password' : 'text'"  required style="width: 280px !important;" autocomplete="off">
+                            <mat-icon matSuffix (click)="signUpHide = !signUpHide" style="cursor: pointer;">{{signUpHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </div><br>
+                        <div style="width:300px">
+                            <mat-slide-toggle style="font-size: 12px;color:#FF6363" (click)="showPasswordStrength()" >Show Password details</mat-slide-toggle><br><br>
+                            <mat-hint align="end" aria-live="polite">{{reactiveForm.value.password.length}} / 25</mat-hint>
+                            <mat-password-strength #passwordComponent class="green" [password]="reactiveForm.value.password"></mat-password-strength>
+                            <mat-password-strength-info *ngIf="showDetails"  [passwordComponent]="passwordComponent"> </mat-password-strength-info>
+                        </div>
+
+                        <!-- <app-password-strength [passwordToCheck]="reactiveForm.value.password" [barLabel]="barLabel"></app-password-strength> -->
+                    </div><br>
+                    <div>
+                        <label for="signup-confirm-password">Confirm Password <b style="color:red">*</b></label><br>
+                        <input formControlName="confirm_password" type="password" id="signup-confirm-password" name="confirm-password" required minlength="15" autocomplete="off"> <br>
+                    </div><br>
+                    <button type="submit" class="btn draw-border" [disabled]="isPasswordMatch" >Create Account</button>
+                </form>
+                
+                <br><br>
+    
+                <div>
+                    <label style="color: black;">Already have an account?</label>
+                    <a class="another_button" (click)="toggle()">Sign In</a>
+                </div>
+    
+            </div>
+        </div>
+        <!-- End of Sign Up -->
+
+        
+    </div>
+</div>

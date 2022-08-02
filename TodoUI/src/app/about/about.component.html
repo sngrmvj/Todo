@@ -1,0 +1,127 @@
+<!--  -->
+<!-- NAVBAR -->
+<!--  -->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <img src="../../assets/to-do.png" style="margin-right: 10px;width:30px;height:30px;">
+    <a class="navbar-brand" style="font-size: 30px;" >
+        To Do Planner
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav" style="font-family: Arial, Helvetica, sans-serif;margin-top: 8px;">
+            <a class="nav-item nav-link active" [routerLink]="['/myprofile']">My Profile</a>
+            <a class="nav-item nav-link active" [routerLink]="['/planners']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                Tasks
+            </a>
+        </div>
+    </div>
+</nav>
+
+
+<div  id="container" style="display: flex;flex-wrap: wrap;flex-direction: column;width:100%;padding:50px;">
+    <div class="card">
+        <div class="title">
+            <header style="font-size: 20px;font-variant: small-caps;">About the application</header>
+        </div>
+        <div style="display: flex;flex-wrap:wrap;flex-direction: row;padding: 10px;">
+            <div style="padding:10px 20px;display: flex;flex-direction: column;flex-wrap: wrap;">
+                <header style="margin-left: -15px;"><b>Daily Tasks</b></header>
+                <ul>
+                    <li>Sometimes because of the busy schedule, we miss some of the tasks or forget daily.</li>
+                    <li>Daily Tasks helps you perform tasks without fail in your busy schedule.</li>
+                    <li>Users can create daily tasks which are to be performed daily.</li>
+                    <li>The tasks under daily tasks gets refreshed daily at 12 am.</li>
+                    <li>Unless deletion of the task, the tasks under daily tasks gets refreshed.</li>
+                    <li>User can Delete his/her tasks or Add tasks </li>
+                    <li>Examples -</li>
+                    <ol style="margin-left: 10px;">
+                        <li>Daily time sheet filling.</li>
+                        <li>Consuming milk/water.</li>
+                        <li>Doing exercises.</li>
+                        <li>Taking medicines, etc.</li>
+                    </ol>
+                </ul>
+            </div>
+            <div style="padding:10px 20px;margin-left:10px;display: flex;flex-direction: column;flex-wrap: wrap;">
+                <header style="margin-left: -15px;"><b>General Tasks</b></header>
+                <ul>
+                    <li>General tasks, to help you remember the tasks which needs to be done.</li>
+                    <li>Unlike Daily tasks, General tasks will not refresh.</li>
+                    <li>Once checked it is considered done or get deleted..</li>
+                    <li>Unless deletion of the task, the tasks cannot be removed.</li>
+                    <li>User can Delete his/her tasks or Add tasks </li>
+                    <li>Examples -</li>
+                    <ol style="margin-left: 10px;">
+                        <li>Vacation lists.</li>
+                        <li>Grocery lists.</li>
+                        <li>Things to be bought.</li>
+                        <li>Sending important mails etc.</li>
+                    </ol>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <div class="card">
+        <div class="title">
+            <header style="font-size: 20px;font-variant: small-caps;">Tech Stack</header>
+        </div>
+        <div style="display: flex;flex-wrap:wrap;flex-direction: row;padding: 10px;">
+            <div style="padding:10px 20px;display: flex;flex-direction: column;flex-wrap: wrap;">
+                <header style="margin-left: -15px;"><b>User Interface</b></header>
+                <ul>
+                    <li>Angular</li>
+                </ul>
+            </div>
+            <div style="padding:10px 20px;display: flex;flex-direction: column;flex-wrap: wrap;">
+                <header style="margin-left: -15px;"><b>Authentication Server</b></header>
+                <ul>
+                    <li>Python Django Framework</li>
+                    <li>DB - PostgreSQL</li>
+                </ul>
+            </div>
+            <div style="padding:10px 20px;display: flex;flex-direction: column;flex-wrap: wrap;">
+                <header style="margin-left: -15px;"><b>Server</b></header>
+                <ul>
+                    <li>Python Flask Framework</li>
+                    <li>DB - MongoDB</li>
+                </ul>
+            </div>
+        </div>
+        <div style="display: flex;flex-wrap:wrap;flex-direction: column;padding: 10px;">
+            <label><b>Note</b></label>
+            <label>Client and Authentication Server communication is done using REST APIs</label>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="title">
+            <header style="font-size: 20px;font-variant: small-caps;">Feedback</header>
+        </div>
+        <div style="display: flex;flex-wrap:wrap;flex-direction: column;padding: 10px;">
+            <header><b>Please provide feedback -</b></header><br>
+            <form #form="ngForm" (ngSubmit)="submitFeedback(form.value); form.resetForm();">
+                <textarea name="feedback" ngModel placeholder="Type here !!" style="border-radius: 5px;width:500px;padding:10px">
+                </textarea><br><br>
+                <button class="feedback-button" type="submit">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="title">
+            <header style="font-size: 20px;font-variant: small-caps;">Details</header>
+        </div>
+        <div style="display: flex;flex-wrap:wrap;flex-direction: column;padding: 10px;">
+            <header><b>Developed by -</b></header>
+            <label>Vijayasai S</label>
+            <a class="contact-details" href="https://www.linkedin.com/in/vijayasaisanagaram/" target="_blank">
+                <img src="https://img.icons8.com/color/96/000000/linkedin.png" style="width:40px;height:40px"/>
+            </a>
+        </div>
+    </div>
+    <br>
+</div>

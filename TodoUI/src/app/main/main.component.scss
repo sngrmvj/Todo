@@ -1,0 +1,73 @@
+
+.nav-item{
+    margin-left: 20px;
+    color: white;
+}
+
+.background-setting{
+    position: absolute;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    background-image: url("../../assets/main-back.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width:100%;
+    height:100%;
+}
+
+.nav-item:hover{
+    // background-color: #6C63FF;
+    color: white !important; 
+    border-radius: 2px ;
+    background-color: rgba(255, 255, 255, .15);  
+    backdrop-filter: blur(5px);
+}
+
+.start-now {
+    border: 1px solid white;
+    display: block;
+    padding: 10px 20px;
+    background-color: transparent;
+    border-radius: 5px;
+    color: white;
+}
+
+.start-now:hover{
+    background-color: white;
+    color: #6C63FF;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.intro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+    flex-direction: column;
+}
+
+.intro-text{
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    text-align: start;
+}
+
+.main-div{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 800px;
+    align-items: center;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-left: 20px;
+    margin-top: 150px;
+    background-color: rgba(255, 255, 255, .15);  
+    backdrop-filter: blur(5px);
+}
